@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Stream-Meme-Deck/static/css/main.6e6f8b0a.chunk.css",
+    "main.js": "/Stream-Meme-Deck/static/js/main.c8744a09.chunk.js",
+    "main.js.map": "/Stream-Meme-Deck/static/js/main.c8744a09.chunk.js.map",
+    "runtime-main.js": "/Stream-Meme-Deck/static/js/runtime-main.73d9822a.js",
+    "runtime-main.js.map": "/Stream-Meme-Deck/static/js/runtime-main.73d9822a.js.map",
+    "static/js/2.afa3e5ca.chunk.js": "/Stream-Meme-Deck/static/js/2.afa3e5ca.chunk.js",
+    "static/js/2.afa3e5ca.chunk.js.map": "/Stream-Meme-Deck/static/js/2.afa3e5ca.chunk.js.map",
+    "index.html": "/Stream-Meme-Deck/index.html",
+    "static/css/main.6e6f8b0a.chunk.css.map": "/Stream-Meme-Deck/static/css/main.6e6f8b0a.chunk.css.map",
+    "static/js/2.afa3e5ca.chunk.js.LICENSE.txt": "/Stream-Meme-Deck/static/js/2.afa3e5ca.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.73d9822a.js",
+    "static/js/2.afa3e5ca.chunk.js",
+    "static/css/main.6e6f8b0a.chunk.css",
+    "static/js/main.c8744a09.chunk.js"
+  ]
+}
