@@ -1,0 +1,2 @@
+html{background-color:#00b140;overflow:hidden}.clearfix,.clearfix *{margin:0;padding:0}.drag-drop-zone{position:absolute;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh}.uploaded-media{position:absolute!important;top:-100px;left:-100px}.uploaded-media img,.uploaded-media video{max-width:100%;max-height:100%;width:auto;height:auto}.uploaded-media.selected{border:3px dotted #5e5e5e;border-radius:10px}.uploaded-media:not(.selected){border:3px dotted transparent}
+/*# sourceMappingURL=main.b7084a71.chunk.css.map */
