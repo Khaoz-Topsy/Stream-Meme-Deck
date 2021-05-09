@@ -1,7 +1,10 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import { MediaType } from './constants/mediaType';
+import { KnownExtensions } from './constants/knownExtensions';
 import { IUploadedImageMeta } from './constracts/uploadedImageMeta';
+import { getExtension } from './helper/extensionHelper';
 
 interface IProps {
     onClick: () => void;
@@ -37,6 +40,16 @@ export const DragAndDropContainer: React.FC<IProps> = (props: IProps) => {
         e.stopPropagation();
     };
 
+    const handleDoubleClick = () => {
+        props.addFile({
+            file: ({} as any),
+            media: MediaType.text,
+            uuid: uuidv4(),
+            clientX: 250,
+            clientY: 250,
+        });
+    };
+
     const handleDatatranferItems = (dataTransferItems: any[], clientX: number, clientY: number) => {
         for (let i = 0; i < dataTransferItems.length; i++) {
             const dataTransferItem = dataTransferItems[i];
@@ -46,19 +59,26 @@ export const DragAndDropContainer: React.FC<IProps> = (props: IProps) => {
                 file = dataTransferItem.getAsFile();
             }
 
+            const fileExt = getExtension(file.name);
+            let isVideo = false;
+            if (fileExt != null) isVideo = KnownExtensions.video.includes(fileExt);
+
             props.addFile({
                 file,
+                media: isVideo ? MediaType.video : MediaType.image,
                 uuid: uuidv4(),
                 clientX,
                 clientY,
             });
         }
     };
+
     return (
         <div className={'drag-drop-zone'}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             onPaste={handlePaste}
+            onDoubleClick={handleDoubleClick}
             onClick={props.onClick}
         >
         </div>

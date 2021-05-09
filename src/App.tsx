@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IUploadedImageMeta } from './constracts/uploadedImageMeta';
-import { UploadedImage } from './components/uploadedImage';
+import { ComponentHandler } from './components/componentHandler';
 
 import { DragAndDropContainer } from './dragAndDropContainer';
 
@@ -66,7 +66,7 @@ class AppUnTrapped extends React.PureComponent<IProps, IState> {
         {
           this.state.files.map((fileMeta: IUploadedImageMeta) => {
             return (
-              <UploadedImage
+              <ComponentHandler
                 key={fileMeta.uuid}
                 {...fileMeta}
                 selectedFile={this.state.selectedFileUuid}
