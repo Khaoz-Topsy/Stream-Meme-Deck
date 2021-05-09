@@ -9,6 +9,28 @@ html {
     padding: 0;
 }
 
+.abs-top-right {
+    position: absolute !important;
+    top: 5px;
+    right: 5px;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+
 .drag-drop-zone {
     position: absolute;
     top: 0;
@@ -17,26 +39,40 @@ html {
     bottom: 0;
     width: 100vw;
     height: 100vh;
+
+    &.drag-is-over {
+        z-index: 100;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 }
 
-.uploaded-media {
-    position: absolute !important;
-    top: -100px;
-    left: -100px;
-
-    img, video {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
+.deck-items {
+    * {
+        --moveable-color: #00cf4c !important;
     }
 
-    &.selected {
-        border: 3px dotted #5e5e5e;
-        border-radius: 10px;
+    .moveable-control {
+        border: unset !important;
     }
 
-    &:not(.selected) {
-        border: 3px dotted transparent;
+    .moveable-rotation .moveable-rotation-control {
+        background: #00cf4c !important;
+    }
+
+    .uploaded-media {
+        position: absolute !important;
+        top: -100px;
+        left: -100px;
+
+        .meta {
+            position: relative;
+            color: #00ff5e;
+        }
+
+        img,
+        video {
+            width: 100%;
+            height: auto;
+        }
     }
 }

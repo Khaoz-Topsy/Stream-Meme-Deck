@@ -1,7 +1,5 @@
 import React from 'react';
-import { EditText } from 'react-edit-text';
-
-import 'react-edit-text/dist/index.css';
+import { EditTextarea } from 'react-edit-text';
 
 interface IProps {
     onChildClick: (e: any) => void;
@@ -10,7 +8,7 @@ interface IProps {
 export const EditableText: React.FC<IProps> = (props: IProps) => {
     return (
         <div onContextMenu={props.onChildClick}>
-            <EditText defaultValue="Default Text" />
+            <EditTextarea defaultValue="Default Text" />
         </div>
     );
 };

@@ -6,4 +6,5 @@ export interface IUploadedImageMeta {
     file: File;
     clientX: number;
     clientY: number;
+    zIndex: number;
 }

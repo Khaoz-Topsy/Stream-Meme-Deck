@@ -1,43 +1,32 @@
-import classNames from 'classnames';
-import { Enable, Resizable } from 're-resizable';
 import React, { ReactNode } from 'react';
-import Draggable from 'react-draggable';
-import { MediaType } from '../constants/mediaType';
+import classNames from 'classnames';
 
+import { MediaType } from '../constants/mediaType';
+import { UploadedMediaDefault } from '../constants/uploadedMediaDefaults';
 import { IUploadedImageMeta } from '../constracts/uploadedImageMeta';
-import { UploadedImage } from './uploadedImage';
-import { UploadedVideo } from './uploadedVideo';
-import { EditableText } from './editableText';
+import { UploadedImage } from './deckItems/uploadedImage';
+import { UploadedVideo } from './deckItems/uploadedVideo';
+import { EditableText } from './deckItems/editableText';
+import { relative } from 'path';
 
 interface IProps extends IUploadedImageMeta {
-    selectedFile: string;
+    isSelected: boolean;
     setSelectedFile: (uuid: string) => void;
 }
 
 export const ComponentHandler: React.FC<IProps> = (props: IProps) => {
-    const isSelected = props.uuid === props.selectedFile;
     const { uuid,
+        isSelected,
         clientX,
         clientY,
-        media } = props;
+        media,
+        zIndex } = props;
 
-    const enabledProps: Enable = {
-        top: isSelected,
-        right: isSelected,
-        bottom: isSelected,
-        left: isSelected,
-        topRight: isSelected,
-        bottomRight: isSelected,
-        bottomLeft: isSelected,
-        topLeft: isSelected,
-    }
-    const defaultPosition = {
-        x: clientX,
-        y: clientY,
-    };
-    const defaultSize = {
-        width: 200,
-        height: 200
+    const styleObj = {
+        top: clientY,
+        left: clientX,
+        width: UploadedMediaDefault.width,
+        zIndex: zIndex,
     };
 
     const onChildClick = (e: any) => {
@@ -52,23 +41,17 @@ export const ComponentHandler: React.FC<IProps> = (props: IProps) => {
     if (media === MediaType.text) { inner = (<EditableText onChildClick={onChildClick} />); }
 
     return (
-        <Draggable
-            handle=".uploaded-media"
-            disabled={isSelected}
-            defaultPosition={defaultPosition}
-            scale={1}
-        // onStart={this.handleStart}
-        // onDrag={this.handleDrag}
-        // onStop={this.handleStop}
+        <div
+            key={`uploadedImg-${uuid}`}
+            className={classNames('uploaded-media', 'noselect', { 'selected': isSelected })}
+            style={styleObj}
         >
-            <Resizable
-                key={`uploadedImg-${uuid}`}
-                defaultSize={defaultSize}
-                enable={enabledProps}
-                className={classNames('uploaded-media', { 'selected': isSelected })}
-            >
-                {inner}
-            </Resizable>
-        </Draggable>
+            {inner}
+            <div className="meta noselect">
+                {
+                    isSelected && <span className="abs-top-right noselect">z-index:&nbsp;{zIndex.toString()}</span>
+                }
+            </div>
+        </div>
     );
 };

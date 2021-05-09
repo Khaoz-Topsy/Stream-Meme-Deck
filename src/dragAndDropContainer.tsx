@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { MediaType } from './constants/mediaType';
+import { UploadedMediaDefault } from './constants/uploadedMediaDefaults';
 import { KnownExtensions } from './constants/knownExtensions';
 import { IUploadedImageMeta } from './constracts/uploadedImageMeta';
 import { getExtension } from './helper/extensionHelper';
+import classNames from 'classnames';
 
 interface IProps {
     onClick: () => void;
@@ -12,6 +14,8 @@ interface IProps {
 }
 
 export const DragAndDropContainer: React.FC<IProps> = (props: IProps) => {
+    const [isOver, setOver] = useState(false);
+
     const handleDragOver = (e: any) => {
         e.preventDefault();
         e.stopPropagation();
@@ -21,6 +25,7 @@ export const DragAndDropContainer: React.FC<IProps> = (props: IProps) => {
         if (e.dataTransfer.items) {
             handleDatatranferItems(e.dataTransfer.items, e.clientX, e.clientY);
         }
+        setOver(false);
         e.stopPropagation();
     };
 
@@ -47,6 +52,7 @@ export const DragAndDropContainer: React.FC<IProps> = (props: IProps) => {
             uuid: uuidv4(),
             clientX: 250,
             clientY: 250,
+            zIndex: UploadedMediaDefault.zIndex,
         });
     };
 
@@ -69,13 +75,16 @@ export const DragAndDropContainer: React.FC<IProps> = (props: IProps) => {
                 uuid: uuidv4(),
                 clientX,
                 clientY,
+                zIndex: UploadedMediaDefault.zIndex,
             });
         }
     };
 
     return (
-        <div className={'drag-drop-zone'}
+        <div className={classNames('drag-drop-zone', { 'drag-is-over': isOver })}
+            onDragEnter={() => setOver(true)}
             onDragOver={handleDragOver}
+            onDragLeave={() => setOver(false)}
             onDrop={handleDrop}
             onPaste={handlePaste}
             onDoubleClick={handleDoubleClick}

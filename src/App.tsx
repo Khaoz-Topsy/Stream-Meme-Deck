@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IUploadedImageMeta } from './constracts/uploadedImageMeta';
-import { ComponentHandler } from './components/componentHandler';
+import { DeckItems } from './components/deckItems';
 
 import { DragAndDropContainer } from './dragAndDropContainer';
 
@@ -29,11 +29,17 @@ class AppUnTrapped extends React.PureComponent<IProps, IState> {
   componentWillMount() {
     this.props.bindShortcut('esc', this._deselect);
     this.props.bindShortcut('del', this._deleteFile);
+
+    this.props.bindShortcut('up', this._incZIndex);
+    this.props.bindShortcut('down', this._decZIndex);
   }
 
   componentWillUnmount() {
     this.props.unbindShortcut('esc', this._deselect);
     this.props.unbindShortcut('del', this._deleteFile);
+
+    this.props.unbindShortcut('up', this._incZIndex);
+    this.props.unbindShortcut('down', this._decZIndex);
   }
 
   _deselect = () => this.setSelectedFile('');
@@ -43,6 +49,28 @@ class AppUnTrapped extends React.PureComponent<IProps, IState> {
       return {
         files: [...prevState.files.filter(f => f.uuid !== prevState.selectedFileUuid)],
         selectedFileUuid: '',
+      }
+    })
+  }
+  _incZIndex = () => this._alterZIndex(1);
+  _decZIndex = () => this._alterZIndex(-1);
+  _alterZIndex = (modifer: number) => {
+    if (this.state.selectedFileUuid == null || this.state.selectedFileUuid.length < 10) return;
+    this.setState((prevState: IState) => {
+      const index = prevState.files.findIndex(f => f.uuid === prevState.selectedFileUuid);
+      if (index == null) return null;
+
+      let newIndex = prevState.files[index].zIndex + modifer;
+      if (newIndex <= 0) newIndex = 1;
+
+      const alteredItem = { ...prevState.files[index], zIndex: newIndex };
+      const newFiles = [
+        ...prevState.files.slice(0, index),
+        alteredItem,
+        ...prevState.files.slice(index + 1)
+      ]
+      return {
+        files: newFiles,
       }
     })
   }
@@ -60,22 +88,12 @@ class AppUnTrapped extends React.PureComponent<IProps, IState> {
   }
 
   render() {
+    const { files, selectedFileUuid } = this.state;
     return (
-      <div className="deck-inner">
+      <>
         <DragAndDropContainer addFile={this.addFile} onClick={() => this.setState({ selectedFileUuid: '' })} />
-        {
-          this.state.files.map((fileMeta: IUploadedImageMeta) => {
-            return (
-              <ComponentHandler
-                key={fileMeta.uuid}
-                {...fileMeta}
-                selectedFile={this.state.selectedFileUuid}
-                setSelectedFile={this.setSelectedFile}
-              />
-            )
-          })
-        }
-      </div >
+        <DeckItems files={files} selectedFileUuid={selectedFileUuid} setSelectedFile={this.setSelectedFile} />
+      </>
     );
   }
 }
