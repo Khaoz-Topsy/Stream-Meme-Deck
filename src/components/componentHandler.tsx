@@ -7,7 +7,6 @@ import { IUploadedImageMeta } from '../constracts/uploadedImageMeta';
 import { UploadedImage } from './deckItems/uploadedImage';
 import { UploadedVideo } from './deckItems/uploadedVideo';
 import { EditableText } from './deckItems/editableText';
-import { relative } from 'path';
 
 interface IProps extends IUploadedImageMeta {
     isSelected: boolean;
