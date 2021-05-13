@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Stream-Meme-Deck/static/css/main.c67fdae3.chunk.css",
-    "main.js": "/Stream-Meme-Deck/static/js/main.cb9b98b9.chunk.js",
-    "main.js.map": "/Stream-Meme-Deck/static/js/main.cb9b98b9.chunk.js.map",
+    "main.js": "/Stream-Meme-Deck/static/js/main.d122b708.chunk.js",
+    "main.js.map": "/Stream-Meme-Deck/static/js/main.d122b708.chunk.js.map",
     "runtime-main.js": "/Stream-Meme-Deck/static/js/runtime-main.73d9822a.js",
     "runtime-main.js.map": "/Stream-Meme-Deck/static/js/runtime-main.73d9822a.js.map",
     "static/css/2.76e3afa8.chunk.css": "/Stream-Meme-Deck/static/css/2.76e3afa8.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.76e3afa8.chunk.css",
     "static/js/2.fd5a14f8.chunk.js",
     "static/css/main.c67fdae3.chunk.css",
-    "static/js/main.cb9b98b9.chunk.js"
+    "static/js/main.d122b708.chunk.js"
   ]
 }
