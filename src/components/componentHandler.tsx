@@ -28,16 +28,25 @@ export const ComponentHandler: React.FC<IProps> = (props: IProps) => {
         zIndex: zIndex,
     };
 
-    const onChildClick = (e: any) => {
-        e.preventDefault();
-        if (isSelected) props?.setSelectedFile?.('');
-        else props?.setSelectedFile?.(uuid);
+    const onChildClick = (type: MediaType) => (e: any) => {
+        e?.preventDefault?.();
+
+        if (type === MediaType.text && isSelected && e.isContextMenuClick) {
+            props?.setSelectedFile?.('');
+            return;
+        }
+
+        // if (isSelected) props?.setSelectedFile?.('');
+        // else props?.setSelectedFile?.(uuid);
+
+        if (isSelected) return;
+        props?.setSelectedFile?.(uuid);
     }
 
     let inner: ReactNode = (<div>Something went wrong</div>);
-    if (media === MediaType.image) { inner = (<UploadedImage file={props.file} onChildClick={onChildClick} />); }
-    if (media === MediaType.video) { inner = (<UploadedVideo file={props.file} onChildClick={onChildClick} />); }
-    if (media === MediaType.text) { inner = (<EditableText onChildClick={onChildClick} />); }
+    if (media === MediaType.image) { inner = (<UploadedImage file={props.file} onChildClick={onChildClick(MediaType.image)} />); }
+    if (media === MediaType.video) { inner = (<UploadedVideo file={props.file} onChildClick={onChildClick(MediaType.video)} />); }
+    if (media === MediaType.text) { inner = (<EditableText file={props.file} isSelected={isSelected} onChildClick={onChildClick(MediaType.text)} />); }
 
     return (
         <div

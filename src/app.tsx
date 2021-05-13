@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IUploadedImageMeta } from './constracts/uploadedImageMeta';
 import { DeckItems } from './components/deckItems';
+import { setUpModal } from './components/modal';
 
 import { DragAndDropContainer } from './dragAndDropContainer';
 
@@ -29,14 +30,18 @@ class AppUnTrapped extends React.PureComponent<IProps, IState> {
   componentWillMount() {
     this.props.bindShortcut('esc', this._deselect);
     this.props.bindShortcut('del', this._deleteFile);
+    this.props.bindShortcut('backspace', this._deleteFile);
 
     this.props.bindShortcut('up', this._incZIndex);
     this.props.bindShortcut('down', this._decZIndex);
+
+    setUpModal();
   }
 
   componentWillUnmount() {
     this.props.unbindShortcut('esc', this._deselect);
     this.props.unbindShortcut('del', this._deleteFile);
+    this.props.unbindShortcut('backspace', this._deleteFile);
 
     this.props.unbindShortcut('up', this._incZIndex);
     this.props.unbindShortcut('down', this._decZIndex);

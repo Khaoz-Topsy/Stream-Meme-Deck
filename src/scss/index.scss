@@ -1,5 +1,9 @@
+$greenScreen: #00b140;
+$greenScreenLight: #00cf4c;
+$greenScreenLight2: #00ff5e;
+
 html {
-    background-color: #00b140;
+    background-color: $greenScreen;
     overflow: hidden;
 }
 
@@ -48,7 +52,7 @@ html {
 
 .deck-items {
     * {
-        --moveable-color: #00cf4c !important;
+        --moveable-color: #{$greenScreenLight} !important;
     }
 
     .moveable-control {
@@ -56,7 +60,7 @@ html {
     }
 
     .moveable-rotation .moveable-rotation-control {
-        background: #00cf4c !important;
+        background: #{$greenScreenLight} !important;
     }
 
     .uploaded-media {
@@ -66,13 +70,77 @@ html {
 
         .meta {
             position: relative;
-            color: #00ff5e;
+            color: $greenScreenLight2;
         }
 
         img,
+        .text,
         video {
-            width: 100%;
+            width: calc(100% - 2em);
             height: auto;
+            padding: 1em;
+            overflow: hidden;
+        }
+
+        .text {
+            height: calc(100% - 2em);
+        }
+    }
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+    background-color: transparent !important;
+    z-index: 4000;
+
+    .ql-snow .ql-fill,
+    .ql-snow .ql-picker,
+    .ql-snow .ql-stroke {
+        fill: #{$greenScreen};
+        color: #{$greenScreenLight};
+        stroke: #{$greenScreenLight};
+    }
+
+    .ql-snow.ql-toolbar button:hover,
+    .ql-snow.ql-toolbar .ql-picker-item:hover,
+    .ql-snow.ql-toolbar .ql-picker-label:hover,
+    .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
+    .ql-snow.ql-toolbar .ql-picker-label.ql-active,
+    .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+    .ql-snow.ql-toolbar button.ql-active,
+    .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+    .ql-snow.ql-toolbar button:hover .ql-stroke {
+        fill: #{$greenScreen};
+        color: #{$greenScreenLight2};
+        stroke: #{$greenScreenLight2};
+    }
+
+    .ReactModal__Content.ReactModal__Content--after-open {
+        border: transparent !important;
+        background-color: #{$greenScreen} !important;
+        min-width: 50vw;
+        min-height: 50vh;
+
+        .ql-container {
+            min-height: 40vh;
+        }
+
+        .ql-toolbar.ql-snow,
+        .ql-container.ql-snow,
+        .ql-snow .ql-picker-options {
+            border: 1px solid #{$greenScreenLight} !important;
+            background-color: #{$greenScreen};
+        }
+
+        .button {
+            margin-top: 0.75em;
+            padding: 1em;
+            cursor: pointer;
+            float: right;
+            color: #{$greenScreenLight2};
+            min-width: 100px;
+            background: #{$greenScreenLight};
+            border: 1px solid #{$greenScreenLight};
+            border-radius: 10px;
         }
     }
 }

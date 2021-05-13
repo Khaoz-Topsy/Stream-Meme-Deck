@@ -10,6 +10,7 @@ export const UploadedImage: React.FC<IProps> = (props: IProps) => {
         <img
             src={URL.createObjectURL(props.file)}
             onContextMenu={props.onChildClick}
+            onClick={props.onChildClick}
             draggable={false}
             alt={props.file.name}
         />

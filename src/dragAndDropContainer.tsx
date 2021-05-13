@@ -32,22 +32,33 @@ export const DragAndDropContainer: React.FC<IProps> = (props: IProps) => {
     const handlePaste = (e: any) => {
         e.preventDefault();
 
-        const isValid = e.clipboardData &&
+        const isFile = e.clipboardData &&
             e.clipboardData.files &&
-            e.clipboardData.files.length;
+            e.clipboardData.files.length
 
+        const isText = e.clipboardData.types &&
+            e.clipboardData.types.includes('text/plain');
+
+        const isValid = isFile || isText;
         if (!isValid) { return; }
 
-        if (e.clipboardData.files) {
+        if (isFile && e.clipboardData.files) {
             handleDatatranferItems(e.clipboardData.files, 250, 250);
+        }
+
+        if (isText && e.clipboardData) {
+            const text = e.clipboardData?.getData?.('text/plain');
+            addText(text);
         }
 
         e.stopPropagation();
     };
 
-    const handleDoubleClick = () => {
+    const handleDoubleClick = () => addText();
+
+    const addText = (text?: string) => {
         props.addFile({
-            file: ({} as any),
+            file: ({ text } as any),
             media: MediaType.text,
             uuid: uuidv4(),
             clientX: 250,
